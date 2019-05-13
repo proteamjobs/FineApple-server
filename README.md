@@ -1,1 +1,3 @@
 fineapple server
+
+TEST FINEAPPLE
