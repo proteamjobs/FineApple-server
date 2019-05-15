@@ -2,7 +2,8 @@ var express = require("express");
 var router = express.Router();
 const controllers = require("../controllers");
 
-router.get("/signin", controllers.users.signin.get);
-router.post("/signup", controllers.users.signup.post);
+/* GET users listing. */
+router.get("/list", controllers.stores.list.get);
+router.get("/info", controllers.stores.info.get);
 
 module.exports = router;
