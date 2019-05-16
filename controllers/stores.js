@@ -40,6 +40,7 @@ module.exports = {
         if (countryCode === "kr") {
           contact = new phoneFormater(getStore.phoneNumber);
           contact.format({ type: "korea" });
+          contact = contact.string;
         } else {
           contact = getStore.phoneNumber;
         }
