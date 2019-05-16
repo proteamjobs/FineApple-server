@@ -44,14 +44,21 @@ module.exports = {
         } else {
           contact = getStore.phoneNumber;
         }
-        let storeInfoData = {
-          storeName: getStore.storeName,
-          address: getStore.address,
-          contact: contact,
-          image_url: getStore.storeImageUrl
-        };
-        // console.log(storeInfoData);
-        res.json(storeInfoData);
+
+        db.stores.findAll({ where: { store_code: storeCode } }).then(result => {
+          let way_to_come = result[0].dataValues.way_to_come;
+          console.log(way_to_come);
+
+          let storeInfoData = {
+            storeName: getStore.storeName,
+            address: getStore.address,
+            contact: contact,
+            image_url: getStore.storeImageUrl,
+            way_to_come: way_to_come
+          };
+
+          res.json(storeInfoData);
+        });
       });
     }
   }
