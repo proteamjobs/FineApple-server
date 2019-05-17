@@ -1,6 +1,7 @@
 const db = require("../models");
 const axios = require("axios");
 const phoneFormater = require("phone-number-formats");
+const setModelCode = require("../module/setModelCode");
 
 phoneFormater.addType("korea", "0X-XXXX-XXXX");
 module.exports = {
@@ -13,7 +14,6 @@ module.exports = {
           result.map(data => {
             setList.push(data.dataValues);
           });
-          console.log("setList :: ", setList);
           res.send(setList);
         })
         .catch(err => {
@@ -25,17 +25,15 @@ module.exports = {
     get: (req, res) => {
       const countryCode = req.query.countryCode;
       const storeCode = req.query.storeCode;
+      let changeModelCode = setModelCode("MMQA2KH/A", countryCode);
 
       let url =
         `https://www.apple.com/${countryCode}` +
-        `/shop/retail/pickup-message?parts.0=MMQA2KH/A&store=${storeCode}`;
-
-      // MMQA2J/A
-
-      console.log(url);
+        `/shop/retail/pickup-message?parts.0=${changeModelCode}&store=${storeCode}`;
 
       axios.get(url).then(result => {
         const getStore = result.data.body.stores[0];
+        const getHours = getStore.storeHours.hours[0];
         let contact;
         if (countryCode === "kr") {
           contact = new phoneFormater(getStore.phoneNumber);
@@ -47,14 +45,14 @@ module.exports = {
 
         db.stores.findAll({ where: { store_code: storeCode } }).then(result => {
           let way_to_come = result[0].dataValues.way_to_come;
-          console.log(way_to_come);
 
           let storeInfoData = {
             storeName: getStore.storeName,
             address: getStore.address,
             contact: contact,
             image_url: getStore.storeImageUrl,
-            way_to_come: way_to_come
+            way_to_come: way_to_come,
+            storeHours: getHours
           };
 
           res.json(storeInfoData);
