@@ -14,7 +14,6 @@ module.exports = {
           result.map(data => {
             setList.push(data.dataValues);
           });
-          console.log("setList :: ", setList);
           res.send(setList);
         })
         .catch(err => {
@@ -32,12 +31,9 @@ module.exports = {
         `https://www.apple.com/${countryCode}` +
         `/shop/retail/pickup-message?parts.0=${changeModelCode}&store=${storeCode}`;
 
-      console.log(url);
-
       axios.get(url).then(result => {
         const getStore = result.data.body.stores[0];
         const getHours = getStore.storeHours.hours[0];
-        console.log(getHours);
         let contact;
         if (countryCode === "kr") {
           contact = new phoneFormater(getStore.phoneNumber);
@@ -49,7 +45,6 @@ module.exports = {
 
         db.stores.findAll({ where: { store_code: storeCode } }).then(result => {
           let way_to_come = result[0].dataValues.way_to_come;
-          console.log(way_to_come);
 
           let storeInfoData = {
             storeName: getStore.storeName,
