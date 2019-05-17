@@ -1,6 +1,7 @@
 const db = require("../models");
 const axios = require("axios");
 const phoneFormater = require("phone-number-formats");
+const setModelCode = require("../module/setModelCode");
 
 phoneFormater.addType("korea", "0X-XXXX-XXXX");
 module.exports = {
@@ -25,17 +26,18 @@ module.exports = {
     get: (req, res) => {
       const countryCode = req.query.countryCode;
       const storeCode = req.query.storeCode;
+      let changeModelCode = setModelCode("MMQA2KH/A", countryCode);
 
       let url =
         `https://www.apple.com/${countryCode}` +
-        `/shop/retail/pickup-message?parts.0=MMQA2KH/A&store=${storeCode}`;
-
-      // MMQA2J/A
+        `/shop/retail/pickup-message?parts.0=${changeModelCode}&store=${storeCode}`;
 
       console.log(url);
 
       axios.get(url).then(result => {
         const getStore = result.data.body.stores[0];
+        const getHours = getStore.storeHours.hours[0];
+        console.log(getHours);
         let contact;
         if (countryCode === "kr") {
           contact = new phoneFormater(getStore.phoneNumber);
@@ -54,7 +56,8 @@ module.exports = {
             address: getStore.address,
             contact: contact,
             image_url: getStore.storeImageUrl,
-            way_to_come: way_to_come
+            way_to_come: way_to_come,
+            storeHours: getHours
           };
 
           res.json(storeInfoData);
