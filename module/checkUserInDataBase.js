@@ -12,6 +12,7 @@ module.exports = (user_id, provider) => {
         return responseData;
       } else if (result) {
         responseData.isMember = !responseData.isMember;
+        responseData["userDB_id"] = result[0].dataValues.id;
         return responseData;
       }
     })
