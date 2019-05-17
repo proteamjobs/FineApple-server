@@ -1,27 +1,15 @@
 const db = require("../models");
+const checkUserInDataBase = require("../module/checkUserInDataBase");
 
 module.exports = {
   auth: {
     post: (req, res) => {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
-      let responseData = {
-        isMember: false
-      };
-      db.users
-        .findAll({ where: { user_id: user_id, provider: provider } })
-        .then(result => {
-          if (!result.length) {
-            res.status(201).json(responseData);
-          } else if (result) {
-            responseData.isMember = !responseData.isMember;
-            res.status(201).json(responseData);
-          }
-        })
-        .catch(err => {
-          res.send(err);
-          console.log("ERROR :: POST /users/auth :: ", err);
-        });
+
+      checkUserInDataBase(user_id, provider).then(data => {
+        res.status(201).json(data);
+      });
     }
   },
   signup: {
@@ -29,15 +17,22 @@ module.exports = {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
 
-      db.users
-        .create({ user_id: user_id, provider: provider })
-        .then(result => {
-          res.send("Done");
-        })
-        .catch(err => {
-          res.send(err);
-          console.log("ERROR :: POST /users/signup :: ", err);
-        });
+      checkUserInDataBase(user_id, provider).then(data => {
+        let isMember = data.isMember;
+        if (!isMember) {
+          db.users
+            .create({ user_id: user_id, provider: provider })
+            .then(() => {
+              res.send("Done");
+            })
+            .catch(err => {
+              res.send(err);
+              console.log("ERROR :: POST /users/signup :: ", err);
+            });
+        } else {
+          res.send("Already user");
+        }
+      });
     }
   },
   token: {

@@ -17,6 +17,10 @@ module.exports = function(sequelize, DataTypes) {
     image: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    model_info: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   });
   products.associate = function(models) {
