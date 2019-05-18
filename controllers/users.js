@@ -35,11 +35,6 @@ module.exports = {
       });
     }
   },
-  token: {
-    post: (req, res) => {
-      res.send(req.body);
-    }
-  },
   delete: {
     delete: (req, res) => {
       const user_id = req.body.user_id;
