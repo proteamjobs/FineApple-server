@@ -1,5 +1,5 @@
 module.exports = {
-  productlist: [
+  heartedItems: [
     {
       productID: 3,
       storeID: 1,
