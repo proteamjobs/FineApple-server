@@ -1,7 +1,9 @@
 const models = require("../models");
+const fakeData = require("../data/fakeDataHearted");
 module.exports = {
   list: {
     get: (req, res) => {
+      res.send(fakeData);
       res.send("GET /heartedItems/list OK");
     }
   },
