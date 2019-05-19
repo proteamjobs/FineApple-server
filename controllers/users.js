@@ -17,9 +17,9 @@ module.exports = {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
 
-      let isMember = await checkUserInDataBase(user_id, provider);
+      let checkMember = await checkUserInDataBase(user_id, provider);
 
-      if (!isMember) {
+      if (!checkMember.isMember) {
         db.users
           .create({ user_id: user_id, provider: provider })
           .then(() => {
