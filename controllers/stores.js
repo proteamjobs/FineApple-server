@@ -25,42 +25,46 @@ module.exports = {
   },
   info: {
     get: (req, res) => {
-      res.send(fakeData);
-      //     const countryCode = req.query.countryCode;
-      //     const storeCode = req.query.storeCode;
-      //     let changeModelCode = setModelCode(countryCode);
-      //     let url =
-      //       `https://www.apple.com/${countryCode}` +
-      //       `/shop/retail/pickup-message?parts.0=${changeModelCode}&store=${storeCode}`;
-      //     axios.get(url).then(result => {
-      //       const getStore = result.data.body.stores[0];
-      //       const getHours = getStore.storeHours.hours[0];
-      //       const getLocation = {
-      //         storelatitude: getStore.storelatitude,
-      //         storelongitude: getStore.storelongitude
-      //       };
-      //       let contact;
-      //       if (countryCode === "kr") {
-      //         contact = new phoneFormater(getStore.phoneNumber);
-      //         contact.format({ type: "korea" });
-      //         contact = contact.string;
-      //       } else {
-      //         contact = getStore.phoneNumber;
-      //       }
-      //       db.stores.findAll({ where: { store_code: storeCode } }).then(result => {
-      //         let way_to_come = result[0].dataValues.way_to_come;
-      //         let storeInfoData = {
-      //           storeName: getStore.storeName,
-      //           address: getStore.address,
-      //           contact: contact,
-      //           image_url: getStore.storeImageUrl,
-      //           way_to_come: way_to_come,
-      //           storeHours: getHours,
-      //           storeLocation: getLocation
-      //         };
-      //         res.json(storeInfoData);
-      //       });
-      //     });
+      // res.send(fakeData);
+      const countryCode = req.query.countryCode;
+      const storeCode = req.query.storeCode;
+      let changeModelCode = setModelCode(countryCode);
+      let url =
+        `https://www.apple.com/${countryCode}` +
+        `/shop/retail/pickup-message?parts.0=${changeModelCode}&store=${storeCode}`;
+      axios.get(url).then(result => {
+        const getStore = result.data.body.stores[0];
+        const getHours = getStore.storeHours.hours[0];
+        const getLocation = {
+          storelatitude: getStore.storelatitude,
+          storelongitude: getStore.storelongitude
+        };
+
+        // 국가 코드가 kr일 경우 전화번호 포멧 변환
+        let contact = "";
+        if (countryCode === "kr") {
+          contact = new phoneFormater(getStore.phoneNumber);
+          contact.format({ type: "korea" });
+          contact = contact.string;
+        } else {
+          contact = getStore.phoneNumber;
+        }
+
+        // findOne으로 수정 필요 & 에러 처리 필요
+        db.stores.findAll({ where: { store_code: storeCode } }).then(result => {
+          let way_to_come = result[0].dataValues.way_to_come;
+          let storeInfoData = {
+            storeName: getStore.storeName,
+            address: getStore.address,
+            contact: contact,
+            image_url: getStore.storeImageUrl,
+            way_to_come: way_to_come,
+            storeHours: getHours,
+            storeLocation: getLocation
+          };
+          res.json(storeInfoData);
+        });
+      });
     }
   }
 };
