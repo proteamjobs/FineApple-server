@@ -15,17 +15,32 @@ module.exports = {
       const store_id = req.body.storeID;
 
       db.heartedItems
-        .create({
-          user_id: user_id,
-          product_id: product_id,
-          store_id: store_id
+        .findAll({
+          where: {
+            user_id: user_id,
+            product_id: product_id,
+            store_id: store_id
+          }
         })
-        .then(() => {
-          res.status(201).send("Status Code 201, Response OK!");
-        })
-        .catch(err => {
-          res.send(err);
-          console.log("ERROR :: POST /users/signup :: ", err);
+        .then(data => {
+          // console.log(data);
+          if (data.length > 0) {
+            res.status(201).send("Status Code 201, Response Already Data!");
+          } else {
+            db.heartedItems
+              .create({
+                user_id: user_id,
+                product_id: product_id,
+                store_id: store_id
+              })
+              .then(() => {
+                res.status(201).send("Status Code 201, Response OK!");
+              })
+              .catch(err => {
+                res.send(err);
+                console.log("ERROR :: POST /users/signup :: ", err);
+              });
+          }
         });
     }
   },
@@ -36,19 +51,33 @@ module.exports = {
       const store_id = req.body.storeID;
 
       db.heartedItems
-        .destroy({
+        .findAll({
           where: {
             user_id: user_id,
             product_id: product_id,
             store_id: store_id
           }
         })
-        .then(() => {
-          res.status(201).send("Status Code 201, Response OK!");
-        })
-        .catch(err => {
-          res.send(err);
-          console.log("ERROR :: DELETE /users/delete :: ", err);
+        .then(data => {
+          if (data.length === 0) {
+            res.status(201).send("Status Code 201, Response No Data!");
+          } else {
+            db.heartedItems
+              .destroy({
+                where: {
+                  user_id: user_id,
+                  product_id: product_id,
+                  store_id: store_id
+                }
+              })
+              .then(() => {
+                res.status(201).send("Status Code 201, Response OK!");
+              })
+              .catch(err => {
+                res.send(err);
+                console.log("ERROR :: DELETE /users/delete :: ", err);
+              });
+          }
         });
     }
   }
