@@ -24,7 +24,7 @@ module.exports = {
       const countryCode = req.query.countryCode;
       const storeCode = req.query.storeCode;
       const category = req.query.category.toLowerCase();
-      const user_id = req.query.user_id;
+      const user_id = req.query.userID;
       let getDataList = {
         dataList: []
       };
