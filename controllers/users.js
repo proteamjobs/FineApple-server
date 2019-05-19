@@ -13,42 +13,47 @@ module.exports = {
     }
   },
   signup: {
-    post: (req, res) => {
+    post: async (req, res) => {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
 
-      checkUserInDataBase(user_id, provider).then(data => {
-        let isMember = data.isMember;
-        if (!isMember) {
-          db.users
-            .create({ user_id: user_id, provider: provider })
-            .then(() => {
-              res.send("Done");
-            })
-            .catch(err => {
-              res.send(err);
-              console.log("ERROR :: POST /users/signup :: ", err);
-            });
-        } else {
-          res.send("Already user");
-        }
-      });
+      let isMember = await checkUserInDataBase(user_id, provider);
+
+      if (!isMember) {
+        db.users
+          .create({ user_id: user_id, provider: provider })
+          .then(() => {
+            res.status(201).send("Status Code 201, Response OK!");
+          })
+          .catch(err => {
+            res.send(err);
+            console.log("ERROR :: POST /users/signup :: ", err);
+          });
+      } else {
+        res.status(201).send("Status Code 201, Response Already User!");
+      }
     }
   },
   delete: {
-    delete: (req, res) => {
+    delete: async (req, res) => {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
 
-      db.users
-        .destroy({ where: { user_id: user_id, provider: provider } })
-        .then(result => {
-          res.json(result);
-        })
-        .catch(err => {
-          res.send(err);
-          console.log("ERROR :: DELETE /users/delete :: ", err);
-        });
+      let isMember = await checkUserInDataBase(user_id, provider);
+
+      if (isMember) {
+        db.users
+          .destroy({ where: { user_id: user_id, provider: provider } })
+          .then(() => {
+            res.status(201).send("Status Code 201, Response OK!");
+          })
+          .catch(err => {
+            res.send(err);
+            console.log("ERROR :: DELETE /users/delete :: ", err);
+          });
+      } else {
+        res.status(201).send("Status Code 201, Response No Data!");
+      }
     }
   },
   deletebyid: {
@@ -57,8 +62,8 @@ module.exports = {
 
       db.users
         .destroy({ where: { id: _id } })
-        .then(result => {
-          res.json(result);
+        .then(() => {
+          res.status(201).send("Status Code 201, Response OK!");
         })
         .catch(err => {
           res.send(err);
