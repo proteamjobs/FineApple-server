@@ -21,7 +21,7 @@ module.exports = {
           store_id: store_id
         })
         .then(() => {
-          res.send("Done");
+          res.status(201).send("Status Code 201, Response OK!");
         })
         .catch(err => {
           res.send(err);
@@ -43,8 +43,8 @@ module.exports = {
             store_id: store_id
           }
         })
-        .then(result => {
-          res.json(result);
+        .then(() => {
+          res.status(201).send("Status Code 201, Response OK!");
         })
         .catch(err => {
           res.send(err);
