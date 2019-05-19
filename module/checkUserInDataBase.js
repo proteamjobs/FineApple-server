@@ -8,10 +8,10 @@ module.exports = async (user_id, provider) => {
   });
 
   if (!getUsers) {
-    console.log("OKOKOK");
+    // console.log("OKOKOK");
     return checkResult;
   } else {
-    console.log("Already!!");
+    // console.log("Already!!");
     checkResult.isMember = true;
     checkResult["userDB_id"] = getUsers.dataValues.id;
     return checkResult;
