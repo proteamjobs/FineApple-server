@@ -1,7 +1,7 @@
 module.exports = {
   heartedItems: [
     {
-      productID: 3,
+      productID: 33,
       storeID: 1,
       modelCode: "MTXP2KH/A",
       modelName: "iPad Pro 3/11/64/S/WIFI",
@@ -14,7 +14,7 @@ module.exports = {
       isHearted: true
     },
     {
-      productID: 4,
+      productID: 34,
       storeID: 1,
       modelCode: "MT9F2KH/A",
       modelName: "iPhoneXS 64/S",
@@ -27,7 +27,7 @@ module.exports = {
       isHearted: true
     },
     {
-      productID: 5,
+      productID: 35,
       storeID: 1,
       modelCode: "MU6A2KH/A",
       modelName: "Apple Watch 4/44/S/Alu",
