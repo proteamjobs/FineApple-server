@@ -1,4 +1,5 @@
 module.exports = country_code => {
+  // 추후에 국가가 추가되면 입력 필요함
   // ex 1) JP -> MMQA2"K"/A -> MMQA2"J"/A
   // ex 2) CN -> MMQA2"K"/A -> MMQA2"CH"/A
   const changeCode = {
