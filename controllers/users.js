@@ -16,6 +16,7 @@ module.exports = {
     post: async (req, res) => {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
+      let returnData = { response: "", isMember: false };
 
       let checkMember = await checkUserInDataBase(user_id, provider);
 
@@ -23,14 +24,17 @@ module.exports = {
         db.users
           .create({ user_id: user_id, provider: provider })
           .then(() => {
-            res.status(201).send("Status Code 201, Response OK!");
+            returnData.response = "Status Code 201, Response OK!";
+            returnData.isMember = true;
+            res.status(201).json(returnData);
           })
           .catch(err => {
             res.send(err);
             console.log("ERROR :: POST /users/signup :: ", err);
           });
       } else {
-        res.status(201).send("Status Code 201, Response Already User!");
+        returnData.response = "Status Code 201, Response Already User!";
+        res.status(201).json(returnData);
       }
     }
   },

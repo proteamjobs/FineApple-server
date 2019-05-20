@@ -39,7 +39,6 @@ module.exports = {
           storelatitude: getStore.storelatitude,
           storelongitude: getStore.storelongitude
         };
-        console.log(getStore.storeName);
         // 국가 코드가 kr일 경우 전화번호 포멧 변환
         let contact = "";
         if (countryCode === "kr") {
