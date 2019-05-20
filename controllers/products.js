@@ -1,5 +1,7 @@
 const db = require("../models");
 const getDataInApple = require("../module/getDataInApple");
+const getHeartedItemsByUser = require("../module/getHeartedItemsByUser");
+
 // const fakeData = require("../data/fakeData");
 module.exports = {
   test: {
@@ -72,18 +74,11 @@ module.exports = {
         // user_id에 따라 DB를 조회하여 제품이 hearted인지 확인
         let getHeartedItemsUser = null;
         if (user_id !== "0") {
-          getHeartedItemsUser = await db.heartedItems
-            .findAll({
-              where: { user_id: user_id },
-              include: [
-                { model: db.users },
-                { model: db.products },
-                { model: db.stores }
-              ]
-            })
-            .catch(err => {
+          getHeartedItemsUser = await getHeartedItemsByUser(user_id).catch(
+            err => {
               console.log("ERROR ::: GET heartedItems ::: ", err);
-            });
+            }
+          );
         }
 
         // 각 데이터들을 가공하여 responseData에 삽입
