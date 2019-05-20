@@ -1,6 +1,6 @@
 const db = require("../models");
 const getDataInApple = require("../module/getDataInApple");
-const getHeartedItemsByUser = require("../module/getHeartedItemsByUser");
+// const getHeartedItemsByUser = require("../module/getHeartedItemsByUser");
 const axios = require("axios");
 
 const fakeData = require("../data/fakeDataHearted");
