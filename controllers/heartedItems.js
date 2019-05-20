@@ -65,10 +65,10 @@ module.exports = {
           return getFunction();
         });
 
-        //
-        let promiseDataList = await Promise.all(getDataAppleAndDB);
+        let resultData = { heartedItems: [] };
+        resultData.heartedItems = await Promise.all(getDataAppleAndDB);
 
-        res.status(200).json(promiseDataList);
+        res.status(200).json(resultData);
       } catch (err) {
         console.log("ERROR ::: heartedItems/list ::: ", err);
         res.send("ERROR ::: heartedItems/list");
