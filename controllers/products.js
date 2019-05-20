@@ -21,7 +21,7 @@ module.exports = {
   list: {
     get: async (req, res) => {
       // res.json(fakeData);
-      const countryCode = req.query.countryCode;
+      const countryCode = req.query.countryCode.toLowerCase();
       const storeCode = req.query.storeCode;
       const category = req.query.category.toLowerCase();
       const user_id = req.query.userID;

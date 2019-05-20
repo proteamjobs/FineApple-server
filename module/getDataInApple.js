@@ -1,16 +1,20 @@
 const axios = require("axios");
 
-module.exports = async (country, store, objDataList) => {
+module.exports = async (country, store, modelData) => {
   // Make URL
-  let modelArr = objDataList.dataList;
   let url =
     `https://www.apple.com/${country}/shop/retail/` +
     `pickup-message?store=${store}`;
-
-  for (let i in modelArr) {
-    url += `&parts.${i}=${modelArr[i].product.model_code}`;
+  if (modelData.constructor === Object) {
+    let modelArr = modelData.dataList;
+    for (let i in modelArr) {
+      url += `&parts.${i}=${modelArr[i].product.model_code}`;
+    }
+  } else if (modelData.constructor === String) {
+    url += `&parts.0=${modelData}`;
   }
 
+  // console.log(url);
   let returnData = { data: {} };
   try {
     let getAppleData = await axios.get(url).catch(err => {
@@ -20,6 +24,7 @@ module.exports = async (country, store, objDataList) => {
     let modelStoreName = getAppleData.data.body.stores[0].address.address;
     let modelKeyArray = Object.keys(modelDataJson);
 
+    // console.log(modelKeyArray);
     // 각 모델별로 픽업 여부 확인
     modelKeyArray.map(key => {
       let isAvailable = null;
