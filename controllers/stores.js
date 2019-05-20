@@ -39,7 +39,7 @@ module.exports = {
           storelatitude: getStore.storelatitude,
           storelongitude: getStore.storelongitude
         };
-
+        console.log(getStore.storeName);
         // 국가 코드가 kr일 경우 전화번호 포멧 변환
         let contact = "";
         if (countryCode === "kr") {
@@ -54,7 +54,7 @@ module.exports = {
         db.stores.findAll({ where: { store_code: storeCode } }).then(result => {
           let way_to_come = result[0].dataValues.way_to_come;
           let storeInfoData = {
-            storeName: getStore.storeName,
+            storeName: getStore.address.address,
             address: getStore.address,
             contact: contact,
             image_url: getStore.storeImageUrl,
