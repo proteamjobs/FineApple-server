@@ -26,8 +26,8 @@ module.exports = {
   info: {
     get: (req, res) => {
       // res.send(fakeData);
-      const countryCode = req.query.countryCode;
-      const storeCode = req.query.storeCode;
+      const countryCode = req.query.countryCode.toLowerCase();
+      const storeCode = req.query.storeCode.toUpperCase();
       let changeModelCode = setModelCode(countryCode);
       let url =
         `https://www.apple.com/${countryCode}` +
