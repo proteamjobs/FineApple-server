@@ -16,7 +16,7 @@ module.exports = {
     post: async (req, res) => {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
-      let returnData = { response: "", isMember: false };
+      let returnData = { response: "", isDone: false };
 
       let checkMember = await checkUserInDataBase(user_id, provider);
 
@@ -25,7 +25,7 @@ module.exports = {
           .create({ user_id: user_id, provider: provider })
           .then(() => {
             returnData.response = "Status Code 201, Response OK!";
-            returnData.isMember = true;
+            returnData.isDone = true;
             res.status(201).json(returnData);
           })
           .catch(err => {
