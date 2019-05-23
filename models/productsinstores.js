@@ -5,6 +5,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
+    },
+    is_pickup: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   });
   productsinstores.associate = function(models) {
