@@ -18,7 +18,13 @@
     "nodemon": "^1.19.0",
     "passport-google-oauth": "^2.0.0",
     "phone-number-formats": "^2.2.0",
-    "sequelize": "^5.8.6"
+    "sequelize": "^5.8.6",
+    "@google-cloud/translate": "^4.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "jquery": "^3.4.1",
+    "jsdom": "^15.1.0",
+    "request": "^2.88.0",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "sequelize-auto": "^0.4.29"
