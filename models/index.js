@@ -32,9 +32,9 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
   }
 });
 
-// sequelize.sync();
+sequelize.sync();
 
-sequelize.sync({ force: true });
+// sequelize.sync({ force: true });
 
 fs.readdirSync(__dirname)
   .filter(file => {
