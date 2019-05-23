@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const basename = path.basename(__filename);
 
-const database = require("../config.json").database;
+const database = require("../config/config.json").database;
 const PASSWORD = database.password;
 const HOST = database.host;
 const USERNAME = database.username;
@@ -32,9 +32,9 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
   }
 });
 
-sequelize.sync();
+// sequelize.sync();
 
-// sequelize.sync({ force: true });
+sequelize.sync({ force: true });
 
 fs.readdirSync(__dirname)
   .filter(file => {

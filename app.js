@@ -10,6 +10,7 @@ const usersRouter = require("./routes/users");
 const storesRouter = require("./routes/stores");
 const productsRouter = require("./routes/products");
 const heartedItemsRouter = require("./routes/heartedItems");
+const devAPIRouter = require("./routes/dev");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/users", usersRouter);
 app.use("/stores", storesRouter);
 app.use("/products", productsRouter);
 app.use("/heartedItems", heartedItemsRouter);
+app.use("/dev", devAPIRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`listening to port ${PORT}...`));
