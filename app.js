@@ -14,11 +14,7 @@ const devAPIRouter = require("./routes/dev");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000"
-  })
-);
+app.use(cors());
 
 app.use(logger("dev"));
 app.use(bodyParser.json());
