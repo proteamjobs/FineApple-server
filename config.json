@@ -1,0 +1,10 @@
+{
+  "database": {
+    "username": "teamjobs",
+    "database": "fineapple",
+    "host": "fineapple.ctqaodjh9hgz.ap-northeast-2.rds.amazonaws.com",
+    "password": "teamjobs1234",
+    "dialect": "mysql",
+    "port": 13306
+  }
+}
