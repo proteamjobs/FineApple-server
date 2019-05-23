@@ -6,7 +6,11 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     },
-    email: {
+    user_id: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    provider: {
       type: DataTypes.STRING(45),
       allowNull: false
     }

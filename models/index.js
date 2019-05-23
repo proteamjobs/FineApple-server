@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const basename = path.basename(__filename);
 
-const database = require("../config.json").database;
+const database = require("../config/config.json").database;
 const PASSWORD = database.password;
 const HOST = database.host;
 const USERNAME = database.username;
