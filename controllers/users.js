@@ -53,10 +53,6 @@ module.exports = {
             }
           }
         );
-        // res.json({
-        //   success: true,
-        //   info: token
-        // });
       };
 
       // if it has failed to verify, it will return an error message
@@ -90,13 +86,14 @@ module.exports = {
     post: async (req, res) => {
       const user_id = req.body.user_id;
       const provider = req.body.provider;
-      let returnData = { response: "", isDone: false };
+      const email = req.body.email;
 
+      let returnData = { response: "", isDone: false };
       let checkMember = await checkUserInDataBase(user_id, provider);
 
       if (!checkMember.isMember) {
         db.users
-          .create({ user_id: user_id, provider: provider })
+          .create({ user_id: user_id, provider: provider, email: email })
           .then(() => {
             returnData.response = "Status Code 201, Response OK!";
             returnData.isDone = true;

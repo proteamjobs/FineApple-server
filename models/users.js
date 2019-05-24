@@ -13,6 +13,10 @@ module.exports = function(sequelize, DataTypes) {
     provider: {
       type: DataTypes.STRING(45),
       allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING(45),
+      allowNull: true
     }
   });
   users.associate = function(models) {
