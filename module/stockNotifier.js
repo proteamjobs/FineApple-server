@@ -41,9 +41,9 @@ let notifyWhenStockComesIn = myCon.add(
         let recieverEmail = mailingInfo[0].dataValues.user.dataValues.email;
         let model = mailingInfo[0].dataValues.product.dataValues.model_info;
         let store = mailingInfo[0].dataValues.store.dataValues.store_name;
-
+        console.log(recieverEmail, model, store);
         let mailOptions = {
-          from: "rossenahuh@gmail.com",
+          from: comapnyMail.email,
           to: recieverEmail,
           subject: "Apple의 품절되었던 상품이 입고되었습니다",
           text: `품절되었던 ${model}이(가) Apple Store ${store}점에 입고되었습니다. 매장 픽업이 가능하니 확인해주세요!`
