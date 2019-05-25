@@ -88,17 +88,17 @@ module.exports = {
       const provider = req.body.provider;
       const email = req.body.email;
 
-      let returnData = { response: "", isDone: false, userDB_ID: 0 };
+      let returnData = { response: "", isDone: false, userDB_id: 0 };
       let checkMember = await checkUserInDataBase(user_id, provider);
 
       if (!checkMember.isMember) {
         db.users
           .create({ user_id: user_id, provider: provider, email: email })
           .then(data => {
-            console.log(data);
+            // console.log(data);
             returnData.response = "Status Code 201, Response OK!";
             returnData.isDone = true;
-            returnData.userDB_ID = data.dataValues.id;
+            returnData.userDB_id = data.dataValues.id;
             res.status(201).json(returnData);
           })
           .catch(err => {
